@@ -1,4 +1,4 @@
-package com.molsbee.movie.model;
+package com.molsbee.movie.omdb;
 
 import lombok.SneakyThrows;
 
@@ -8,13 +8,15 @@ import java.util.Optional;
 public class OmdbUri {
 
     private final String title;
+    private final String key;
     private final Type type;
     private final Optional year;
     private final Plot plot;
     private final int version;
 
-    private OmdbUri(String title, Type type, Integer year, Plot plot, int version) {
+    private OmdbUri(String title, String key, Type type, Integer year, Plot plot, int version) {
         this.title = title;
+        this.key = key;
         this.type = type;
         this.year = Optional.ofNullable(year);
         this.plot = plot;
@@ -24,7 +26,7 @@ public class OmdbUri {
     @SneakyThrows
     public String get() {
         String apiEndpoint = "http://www.omdbapi.com/";
-        String t = "?t=" + URLEncoder.encode(this.title, "UTF-8");
+        String t = "?" + key + "=" + URLEncoder.encode(this.title, "UTF-8");
         String y = "&y=" + year.orElse("");
         String p = "&plot=" + plot.name().toLowerCase();
         String dataType = "&r=json";
@@ -35,6 +37,7 @@ public class OmdbUri {
     public static class Builder {
 
         private final String title;
+        private String key = "t";
         private Type type = Type.MOVIE;
         private Integer year;
         private Plot plot = Plot.FULL;
@@ -42,6 +45,16 @@ public class OmdbUri {
 
         public Builder(String title) {
             this.title = title;
+        }
+
+        public Builder search() {
+            this.key = "s";
+            return this;
+        }
+
+        public Builder imdb() {
+            this.key = "i";
+            return this;
         }
 
         public Builder type(Type type) {
@@ -65,7 +78,7 @@ public class OmdbUri {
         }
 
         public OmdbUri build() {
-            return new OmdbUri(title, type, year, plot, version);
+            return new OmdbUri(title, key, type, year, plot, version);
         }
 
     }

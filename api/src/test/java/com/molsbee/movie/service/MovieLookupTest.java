@@ -1,7 +1,9 @@
 package com.molsbee.movie.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.molsbee.movie.model.OmdbResponse;
+import com.molsbee.movie.model.omdb.Search;
+import com.molsbee.movie.model.omdb.TitleResponse;
+import com.molsbee.movie.model.omdb.TitleSearchResponse;
 import org.apache.commons.io.IOUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -13,9 +15,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -24,47 +27,61 @@ public class MovieLookupTest {
     @Mock private RestTemplate restTemplate;
     @InjectMocks private MovieLookup lookupService;
 
-    private static OmdbResponse omdbResponse;
     private static ObjectMapper mapper = new ObjectMapper();
+    private static TitleResponse omdbTitleResponse;
+    private static Search omdbSearchResponse;
 
     @BeforeClass
     public static void testSetup() throws IOException {
-        String greenLanter = IOUtils.toString(new FileInputStream("src/test/resources/com/molsbee/movie/service/omdb-response.json"));
-        omdbResponse = mapper.readValue(greenLanter, OmdbResponse.class);
+        omdbTitleResponse = mapper.readValue(IOUtils.toString(new FileInputStream("src/test/resources/com/molsbee/movie/service/omdb-response.json")), TitleResponse.class);
+        omdbSearchResponse = mapper.readValue(IOUtils.toString(new FileInputStream("src/test/resources/com/molsbee/movie/service/movie-search.json")), Search.class);
     }
 
     @Test
-    public void getMovieByTitle() throws UnsupportedEncodingException {
+    public void getMovieByTitle() throws Exception {
         // arrange
         String movieTitle = "Green Lantern";
         String uri = "http://www.omdbapi.com/?t=Green+Lantern&y=&plot=full&r=json";
-        when(restTemplate.getForObject(uri, OmdbResponse.class)).thenReturn(omdbResponse);
+        when(restTemplate.getForObject(uri, TitleResponse.class)).thenReturn(omdbTitleResponse);
 
         // act
-        OmdbResponse actualResponse = lookupService.getMovieByTitle("Green Lantern");
+        TitleResponse actualResponse = lookupService.getMovieByTitle("Green Lantern");
 
         // assert
-        assertEquals("Green Lantern", actualResponse.getTitle());
-        assertEquals("Green Lantern", omdbResponse.getTitle());
-        assertEquals("2011", omdbResponse.getYear());
-        assertEquals("PG-13", omdbResponse.getRated());
-        assertEquals("17 Jun 2011", omdbResponse.getReleased());
-        assertEquals("114 min", omdbResponse.getRuntime());
-        assertEquals("Action, Adventure, Sci-Fi", omdbResponse.getGenre());
-        assertEquals("Martin Campbell", omdbResponse.getDirector());
-        assertEquals("Greg Berlanti (screenplay), Michael Green (screenplay), Marc Guggenheim (screenplay), Michael Goldenberg (screenplay), Greg Berlanti (screen story), Michael Green (screen story), Marc Guggenheim (screen story)", omdbResponse.getWriter());
-        assertEquals("Ryan Reynolds, Blake Lively, Peter Sarsgaard, Mark Strong", omdbResponse.getActors());
-        assertEquals("Reckless test pilot Hal Jordan is granted an alien ring that bestows him with otherworldly powers that inducts him into an intergalactic police force, the Green Lantern Corps.", omdbResponse.getPlot());
-        assertEquals("English", omdbResponse.getLanguage());
-        assertEquals("USA", omdbResponse.getCountry());
-        assertEquals("1 win & 5 nominations.", omdbResponse.getAwards());
-        assertEquals("http://ia.media-imdb.com/images/M/MV5BMTMyMTg3OTM5Ml5BMl5BanBnXkFtZTcwNzczMjEyNQ@@._V1_SX300.jpg", omdbResponse.getPoster());
-        assertEquals("39", omdbResponse.getMetascore());
-        assertEquals("5.7", omdbResponse.getImdbRating());
-        assertEquals("197161", omdbResponse.getImdbVotes());
-        assertEquals("tt1133985", omdbResponse.getImdbId());
-        assertEquals("movie", omdbResponse.getType());
-        assertEquals("True", omdbResponse.getResponse());
+        assertEquals(omdbTitleResponse.getTitle(), actualResponse.getTitle());
+        assertEquals(omdbTitleResponse.getYear(), actualResponse.getYear());
+        assertEquals(omdbTitleResponse.getRated(), actualResponse.getRated());
+        assertEquals(omdbTitleResponse.getReleased(), actualResponse.getReleased());
+        assertEquals(omdbTitleResponse.getRuntime(), actualResponse.getRuntime());
+        assertEquals(omdbTitleResponse.getGenre(), actualResponse.getGenre());
+        assertEquals(omdbTitleResponse.getDirector(), actualResponse.getDirector());
+        assertEquals(omdbTitleResponse.getWriter(), actualResponse.getWriter());
+        assertEquals(omdbTitleResponse.getActors(), actualResponse.getActors());
+        assertEquals(omdbTitleResponse.getPlot(), actualResponse.getPlot());
+        assertEquals(omdbTitleResponse.getLanguage(), actualResponse.getLanguage());
+        assertEquals(omdbTitleResponse.getCountry(), actualResponse.getCountry());
+        assertEquals(omdbTitleResponse.getAwards(), actualResponse.getAwards());
+        assertEquals(omdbTitleResponse.getPoster(), actualResponse.getPoster());
+        assertEquals(omdbTitleResponse.getMetascore(), actualResponse.getMetascore());
+        assertEquals(omdbTitleResponse.getImdbRating(), actualResponse.getImdbRating());
+        assertEquals(omdbTitleResponse.getImdbVotes(), actualResponse.getImdbVotes());
+        assertEquals(omdbTitleResponse.getImdbId(), actualResponse.getImdbId());
+        assertEquals(omdbTitleResponse.getType(), actualResponse.getType());
+        assertEquals(omdbTitleResponse.getResponse(), actualResponse.getResponse());
+    }
+
+    @Test
+    public void searchMovieByTitle() throws Exception {
+        // arrange
+        String movieTitle = "Green";
+        String uri = "http://www.omdbapi.com/?s=" + movieTitle + "&y=&plot=full&r=json";
+        when(restTemplate.getForObject(uri, Search.class)).thenReturn(omdbSearchResponse);
+
+        // act
+        List<TitleSearchResponse> response = lookupService.searchMovieByTitle(movieTitle);
+
+        // assert
+        assertNotNull(response);
     }
 
 }

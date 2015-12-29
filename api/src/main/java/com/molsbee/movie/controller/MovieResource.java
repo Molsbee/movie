@@ -1,6 +1,6 @@
 package com.molsbee.movie.controller;
 
-import com.molsbee.movie.model.OmdbResponse;
+import com.molsbee.movie.model.omdb.TitleResponse;
 import com.molsbee.movie.service.MovieLookup;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,8 @@ public class MovieResource {
     private MovieLookup movieService;
 
     @RequestMapping(value = "/title/{movieTitle}", method = RequestMethod.GET)
-    public ResponseEntity<OmdbResponse> getMovieByTitle(@PathVariable("movieTitle") String movieTitle) {
-        OmdbResponse omdbResponse = omdbResponse = movieService.getMovieByTitle(movieTitle);
+    public ResponseEntity<TitleResponse> getMovieByTitle(@PathVariable("movieTitle") String movieTitle) {
+        TitleResponse omdbResponse = omdbResponse = movieService.getMovieByTitle(movieTitle);
         return new ResponseEntity<>(omdbResponse, HttpStatus.OK);
     }
 

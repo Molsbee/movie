@@ -1,4 +1,4 @@
-package com.molsbee.movie.model;
+package com.molsbee.movie.omdb;
 
 public enum Type {
     MOVIE,
