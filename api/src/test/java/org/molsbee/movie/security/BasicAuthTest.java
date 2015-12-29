@@ -19,6 +19,7 @@ import javax.servlet.Filter;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -48,7 +49,18 @@ public class BasicAuthTest {
         // act
         mvc.perform(get("/api/movie/title/{movieTitle}", "Halo")
                 .with(httpBasic("william.molsbee", "testing")))
+                .andDo(print())
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    public void homeResource_RedirectToLogin() throws Exception {
+        // act
+        mvc.perform(get("/"))
+//                .with(httpBasic("william.molsbee", "testing")))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection());
+    }
+
 
 }

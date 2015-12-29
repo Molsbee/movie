@@ -19,7 +19,7 @@ public class ApplicationInitializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-        rootContext.register(ApplicationConfig.class, DispatcherConfig.class, SecurityConfig.class);
+        rootContext.register(SecurityConfig.class, ApplicationConfig.class, DispatcherConfig.class);
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));
 
         servletContext.addListener(new ContextLoaderListener(rootContext));
