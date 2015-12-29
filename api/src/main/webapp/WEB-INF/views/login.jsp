@@ -8,7 +8,7 @@
 </head>
 <body onload='document.login.username.focus();'>
 
-    <div class="container col-sm-offset-4 col-sm-4">
+    <div class="container col-sm-offset-4 col-sm-4" style="padding-top: 100px">
         <c:if test="${not empty error}">
             <div class="alert alert-danger">
                 <h4>We didn't recognize the username or password you entered. Please try again.</h4>
