@@ -26,7 +26,7 @@ public class MovieResource {
 
     @RequestMapping(value = "/title/{title}", method = RequestMethod.GET)
     public ResponseEntity<TitleResponse> getMovieByTitle(@PathVariable("title") String title) {
-        TitleResponse omdbResponse = omdbResponse = movieService.getMovieByTitle(title);
+        TitleResponse omdbResponse = movieService.getMovieByTitle(title);
         return new ResponseEntity<>(omdbResponse, HttpStatus.OK);
     }
 

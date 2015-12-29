@@ -4,7 +4,6 @@ import org.molsbee.movie.security.config.SecurityConfig;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
-import org.springframework.web.SpringServletContainerInitializer;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -15,7 +14,7 @@ import javax.servlet.*;
 import java.util.EnumSet;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class ApplicationInitializer extends SpringServletContainerInitializer implements WebApplicationInitializer {
+public class ApplicationInitializer implements WebApplicationInitializer {
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {

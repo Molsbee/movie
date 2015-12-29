@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {"org.molsbee.movie.api.controller"})
+@ComponentScan(basePackages = {"org.molsbee.movie.controller"})
 public class DispatcherConfig extends WebMvcConfigurerAdapter {
 
     @Override
