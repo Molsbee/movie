@@ -1,10 +1,10 @@
 package org.molsbee.movie.security;
 
-import org.molsbee.movie.config.ApplicationConfig;
-import org.molsbee.movie.security.config.SecurityConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.molsbee.movie.config.ApplicationConfig;
+import org.molsbee.movie.security.config.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -57,8 +57,6 @@ public class BasicAuthTest {
     public void homeResource_RedirectToLogin() throws Exception {
         // act
         mvc.perform(get("/"))
-//                .with(httpBasic("william.molsbee", "testing")))
-                .andDo(print())
                 .andExpect(status().is3xxRedirection());
     }
 

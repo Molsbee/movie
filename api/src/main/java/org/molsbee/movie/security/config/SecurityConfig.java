@@ -32,10 +32,10 @@ public class SecurityConfig {
         public void configure(WebSecurity webSecurity) {
             webSecurity
                     .ignoring()
-                    .antMatchers("/css")
-                    .antMatchers("/fonts")
-                    .antMatchers("/img")
-                    .antMatchers("/js");
+                    .antMatchers("/css/**")
+                    .antMatchers("/fonts/**")
+                    .antMatchers("/img/**")
+                    .antMatchers("/js/**");
         }
 
         @Override
@@ -43,7 +43,7 @@ public class SecurityConfig {
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/**").authenticated()
+                    .antMatchers("/", "/create").authenticated()
                     .and()
                     .authenticationProvider(authenticationProvider())
                     .formLogin()
