@@ -79,7 +79,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="plot">Plot:</label>
 			<div class="col-sm-3">
-				<textarea class="form-control" id="plot" rows="3" placeholder="Example: A troubled teenager is plagued by visions of a large bunny rabbit that manipulates him to commit a series of crimes, after narrowly escaping a bizarre accident." data-bind="value: plot"></textarea>
+				<textarea class="form-control" id="plot" rows="5" placeholder="Example: A troubled teenager is plagued by visions of a large bunny rabbit that manipulates him to commit a series of crimes, after narrowly escaping a bizarre accident." data-bind="value: plot"></textarea>
 			</div>
 		</div>
 		<div class="form-group">
