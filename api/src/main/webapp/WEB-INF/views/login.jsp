@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap.css" />" media="screen">
     <title>Login Page</title>
 </head>
-<body onload='document.login.username.focus();'>
+<body onload='document.login.username.focus();' style="background-color: black">
 
     <div class="container col-sm-offset-4 col-sm-4" style="padding-top: 100px">
         <c:if test="${not empty error}">
