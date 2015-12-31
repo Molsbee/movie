@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public class OmdbUri {
 
+    private static final String OMDB_API_ENDPOINT = "http://www.omdbapi.com/";
+
     private final String title;
     private final String key;
     private final Type type;
@@ -23,14 +25,17 @@ public class OmdbUri {
         this.version = version;
     }
 
+    public static Builder builder(String title) {
+        return new Builder(title);
+    }
+
     @SneakyThrows
     public String get() {
-        String apiEndpoint = "http://www.omdbapi.com/";
         String t = "?" + key + "=" + URLEncoder.encode(this.title, "UTF-8");
         String y = "&y=" + year.orElse("");
         String p = "&plot=" + plot.name().toLowerCase();
         String dataType = "&r=json";
-        String uri = apiEndpoint + t + y + p + dataType;
+        String uri = OMDB_API_ENDPOINT + t + y + p + dataType;
         return uri;
     }
 

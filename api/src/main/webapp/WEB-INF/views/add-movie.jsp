@@ -20,12 +20,12 @@
 
 	<form class="form-horizontal" role="form" name="add-movie">
 		<div class="form-group">
-			<label class="col-sm-2 control-label" for="title">Movie Title:</label>
+			<label class="col-sm-2 control-label" for="title">Title:</label>
 			<div class="col-sm-3">
 				<input type="text" class="form-control" id="title" placeholder="Example: Donnie Darko" data-bind="value: title">
-			</div>
+            </div>
 			<div class="col-sm-1">
-				<button class="form-control btn btn-primary" id="search" data-bind="click: search">Search</button>
+				<button class="form-control btn btn-primary" id="search" data-bind="text: searchButton.text, disable: searchButton.disabled, click: searchButton.search"></button>
 			</div>
 		</div>
 		<div class="form-group">
@@ -151,7 +151,57 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.3/knockout.validation.min.js"></script>
 	<script src="<c:url value="/js/bootstrap.js" />"></script>
 	<script>
-		function ModelView() {
+        function SearchResponse(data) {
+            var self = this;
+
+            self.title = ko.observable(data.Title);
+            self.year = ko.observable(data.Year);
+
+            return this;
+        }
+
+        function SearchButton(parent) {
+            var self = this;
+
+            self.text = ko.observable("Search");
+            self.disabled = ko.computed(function() {
+                return self.text() == "Searching";
+            });
+            self.search = function() {
+                self.text("Searching");
+                $.ajax({
+                    method: 'GET',
+                    url: '<c:url value="/api/movie/title/"/>' + encodeURIComponent(parent.title()),
+                    success: function(data) {
+                        parent.year(data.Year);
+                        parent.rating(data.Rated);
+                        parent.released(data.Released);
+                        parent.runtime(data.Runtime);
+                        parent.genre(data.Genre);
+                        parent.director(data.Director);
+                        parent.writer(data.Writer);
+                        parent.actors(data.Actors);
+                        parent.plot(data.Plot);
+                        parent.language(data.Language);
+                        parent.country(data.Country);
+                        parent.awards(data.Awards);
+                        parent.poster(data.Poster);
+                        parent.metascore(data.Metascore);
+                        parent.imdbRating(data.imdbRating);
+                        parent.imdbVotes(data.imdbVotes);
+                        parent.imdbID(data.imdbID);
+                        parent.type(data.Type);
+                    },
+                    complete: function() {
+                        self.text("Search");
+                    }
+                });
+            };
+
+            return self;
+        }
+
+        function ModelView() {
 			var self = this;
 
 			self.title = ko.observable();
@@ -174,34 +224,28 @@
 			self.imdbID = ko.observable();
 			self.type = ko.observable();
 
-			self.search = function() {
-				$.ajax({
-					method: 'GET',
-					url: '<c:url value="/api/movie/title/"/>' + encodeURIComponent(self.title()),
-					success: function(data) {
-						self.year(data.Year);
-						self.rating(data.Rated);
-						self.released(data.Released);
-						self.runtime(data.Runtime);
-						self.genre(data.Genre);
-						self.director(data.Director);
-						self.writer(data.Writer);
-						self.actors(data.Actors);
-						self.plot(data.Plot);
-						self.language(data.Language);
-						self.country(data.Country);
-						self.awards(data.Awards);
-						self.poster(data.Poster);
-						self.metascore(data.Metascore);
-						self.imdbRating(data.imdbRating);
-						self.imdbVotes(data.imdbVotes);
-						self.imdbID(data.imdbID);
-						self.type(data.Type);
-					}
-				});
-			};
+			self.searchButton = new SearchButton(self);
 
-			self.save = function() {
+            self.disabled = ko.computed(function() {
+                return self.searchButton.disabled();
+            });
+
+            self.suggestions = ko.observableArray();
+            self.search = function() {
+                $.ajax({
+                    method: 'GET',
+                    url: '<c:url value="/api/movie/search/"/>' + encodeURIComponent(self.title()),
+                    success: function (data) {
+                        for (i = 0; i < data.length; i++) {
+                            var tempSuggestions = [];
+                            tempSuggestions.push(new SearchResponse(data[i]));
+                        }
+                        self.suggestions(tempSuggestions);
+                    }
+                });
+            };
+
+            self.save = function() {
 				var request = {
 					title: self.title,
 					year: self.year,

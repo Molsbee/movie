@@ -19,12 +19,12 @@ public class MovieLookup {
     private RestTemplate restTemplate;
 
     public TitleResponse getMovieByTitle(String title) {
-        String endpoint = new OmdbUri.Builder(title).build().get();
+        String endpoint = OmdbUri.builder(title).build().get();
         return restTemplate.getForObject(endpoint, TitleResponse.class);
     }
 
     public List<TitleSearchResponse> searchMovieByTitle(String title) {
-        String endpoint = new OmdbUri.Builder(title).search().build().get();
+        String endpoint = OmdbUri.builder(title).search().build().get();
         Search search = restTemplate.getForObject(endpoint, Search.class);
         return search.getSearch();
     }
