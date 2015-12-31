@@ -2,13 +2,37 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap.css" />" media="screen" />
+	<title>Movie</title>
+
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
+<%@ include file="banner.jsp"%>
 
-<P>  The time on the server is ${serverTime}. </P>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.11.4/jquery-ui.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.3.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.3/knockout.validation.min.js"></script>
+<script src="<c:url value="/js/bootstrap.js" />"></script>
+<script>
+	function ModelView() {
+		var self = this;
+
+
+		return self;
+	};
+	$(function() {
+		ko.applyBindings(new ModelView());
+	});
+</script>
 </body>
 </html>

@@ -9,10 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,5 +33,14 @@ public class MovieResource {
         List<TitleSearchResponse> titles = movieService.searchMovieByTitle(title);
         return new ResponseEntity<>(titles, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/title", method = RequestMethod.POST)
+    public ResponseEntity createMovie(@RequestBody TitleResponse titleResponse) {
+
+
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+
 
 }
