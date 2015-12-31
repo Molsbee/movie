@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = PersistenceConfig.class)
@@ -31,6 +32,8 @@ public class MovieRepositoryTest {
 
         // assert
         assertNotNull(movie);
+        assertTrue(!movie.getActors().isEmpty());
+        assertTrue(!movie.getGenre().isEmpty());
     }
 
 }

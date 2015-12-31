@@ -1,11 +1,14 @@
 package org.molsbee.movie.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Builder;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "actor")
 public class Actor implements Serializable {
@@ -21,5 +24,11 @@ public class Actor implements Serializable {
 
     @Column(name = "last_name")
     private String lastName;
+
+    @Builder
+    public Actor(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
 }

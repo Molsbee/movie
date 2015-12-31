@@ -1,9 +1,6 @@
 package org.molsbee.movie.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.molsbee.movie.model.omdb.Search;
-import org.molsbee.movie.model.omdb.TitleResponse;
-import org.molsbee.movie.model.omdb.TitleSearchResponse;
 import org.apache.commons.io.IOUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,6 +8,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.molsbee.movie.model.omdb.Search;
+import org.molsbee.movie.model.omdb.TitleResponse;
+import org.molsbee.movie.model.omdb.TitleSearchResponse;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.FileInputStream;
@@ -67,7 +67,6 @@ public class MovieLookupTest {
         assertEquals(omdbTitleResponse.getImdbVotes(), actualResponse.getImdbVotes());
         assertEquals(omdbTitleResponse.getImdbId(), actualResponse.getImdbId());
         assertEquals(omdbTitleResponse.getType(), actualResponse.getType());
-        assertEquals(omdbTitleResponse.getResponse(), actualResponse.getResponse());
     }
 
     @Test

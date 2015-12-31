@@ -208,6 +208,7 @@
 					rating: self.rating,
 					released: self.released,
 					runtime: self.runtime,
+                    genre: self.genre,
 					director: self.director,
 					writer: self.writer,
 					actors: self.actors,
