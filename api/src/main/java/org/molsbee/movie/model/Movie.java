@@ -40,7 +40,7 @@ public class Movie implements Serializable {
     @Column(name = "runtime")
     private String runtime;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "movie_genres",
             joinColumns = @JoinColumn(name = "genre_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id"))
@@ -52,7 +52,7 @@ public class Movie implements Serializable {
     @Column(name = "writer")
     private String writer;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "movie_actors",
             joinColumns = @JoinColumn(name = "actor_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id"))

@@ -11,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +26,19 @@ public class MovieResource {
     @Autowired
     private MovieService movieService;
 
+    @RequestMapping(value = "/list", method = RequestMethod.GET, params = {"genre", "page", "pagesize"})
+    public ResponseEntity<List<Movie>> getMovies(@RequestParam("genre") String genre,
+                                           @RequestParam(value = "page", required = true) int page,
+                                           @RequestParam(value = "pagesize", required = true) int pagesize) {
+        List<Movie> movies;
+        if (genre != null) {
+             movies = movieService.list(genre, page, pagesize);
+        } else {
+             movies = movieService.list(page, pagesize);
+        }
+        return new ResponseEntity<>(movies, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/title/{title}", method = RequestMethod.GET)
     public ResponseEntity<TitleResponse> getMovieByTitle(@PathVariable("title") String title) {
         TitleResponse omdbResponse = movieLookup.getMovieByTitle(title);
@@ -41,7 +51,7 @@ public class MovieResource {
         return new ResponseEntity<>(titles, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/title", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createMovie(@RequestBody TitleResponse titleResponse) {
         Movie movie = titleResponse.toMovie();
         movieService.save(movie);

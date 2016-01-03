@@ -18,9 +18,8 @@
 							<li>
 								<div class="row" style="width: 600px;">
 									<ul id="pages" class="list-unstyled col-md-2">
-										<li>Home</li>
-										<li>Login</li>
-										<li>Admin</li>
+										<li><a href="<c:url value="/"/>">Home</a></li>
+										<li><a href="<c:url value="/create"/>">Create</a></li>
 									</ul>
 									<ul id="movies-1" class="list-unstyled col-md-5">
 										<li>Movie Genres</li>

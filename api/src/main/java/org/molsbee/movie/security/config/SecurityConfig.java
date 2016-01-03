@@ -42,6 +42,7 @@ public class SecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                     .and()
+                    .csrf().disable()
                     .authorizeRequests()
                     .antMatchers("/", "/create").authenticated()
                     .and()
@@ -73,9 +74,9 @@ public class SecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                     .and()
+                    .csrf().disable()
                     .authorizeRequests()
-                    .antMatchers("/heath", "/metrics").hasAuthority(Authority.ADMIN.name())
-                    .antMatchers("/api/**").hasAuthority(Authority.ADMIN.name())
+                    .antMatchers("/heath", "/metrics", "/api/**").hasAuthority(Authority.ADMIN.name())
                     .and()
                     .authenticationProvider(authenticationProvider())
                     .httpBasic();

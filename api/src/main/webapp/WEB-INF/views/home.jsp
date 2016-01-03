@@ -17,6 +17,16 @@
 <body>
 <%@ include file="banner.jsp"%>
 
+<div data-bind="foreach: genres">
+	<div class="row" style="padding-top: 20px">
+		<div class="col-md-3" data-bind="foreach: movies">
+			<a href-="#" class="thumbnail">
+				<img data-bind="attr: {src: poster}">
+			</a>
+		</div>
+	</div>
+</div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.11.4/jquery-ui.min.js"></script>
@@ -24,9 +34,63 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.3/knockout.validation.min.js"></script>
 <script src="<c:url value="/js/bootstrap.js" />"></script>
 <script>
+	function Movie(data) {
+		var self = this;
+		self.title = data.title;
+		self.year = data.year;
+		self.rating = data.rating;
+		self.releaseDate = data.releaseDate;
+		self.runtime = data.runtime;
+		self.director = data.director;
+		self.writer = data.writer;
+		self.actors = data.actors;
+		self.plot = data.plot;
+		self.language = data.language;
+		self.country = data.country;
+		self.awards = data.awards;
+		self.poster = data.poster;
+		self.metascore = data.metascore;
+		self.imdbRating = data.imdbRating;
+		self.imdbVotes = data.imdbVotes;
+		self.imdbId = data.imdbId;
+		self.type = data.type;
+		return self;
+	};
+	function Genre(data) {
+		var self = this;
+
+		self.name = ko.observable(data.name);
+		self.movies = ko.observableArray();
+		$.ajax({
+			method: 'GET',
+			url: '<c:url value="/api/movie/list/"/>' + "?genre=" + self.name() + "&page=0&pagesize=4",
+			success: function(data) {
+				var tempMovies = [];
+				for (i = 0; i < data.length; i++) {
+					tempMovies.push(new Movie(data[i]));
+				}
+				self.movies(tempMovies);
+			}
+		});
+
+		return self;
+	};
+
 	function ModelView() {
 		var self = this;
 
+		self.genres = ko.observableArray();
+		$.ajax({
+			method: 'GET',
+			url: '<c:url value="/api/genre/list"/>',
+			success: function(data) {
+				var tempGenre = [];
+				for (i = 0; i < data.length; i++) {
+					tempGenre.push(new Genre(data[i]));
+				}
+				self.genres(tempGenre);
+			}
+		});
 
 		return self;
 	};

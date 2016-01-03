@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <html>
 <head>		
 	<meta charset="utf-8">
@@ -141,7 +141,8 @@
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-1">
 				<button class="form-control btn btn-primary" id="submit" data-bind="click: save">Submit</button>
-			</div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </div>
 		</div>
 	</div>
 
@@ -247,32 +248,36 @@
 
             self.save = function() {
 				var request = {
-					title: self.title,
-					year: self.year,
-					rating: self.rating,
-					released: self.released,
-					runtime: self.runtime,
-                    genre: self.genre,
-					director: self.director,
-					writer: self.writer,
-					actors: self.actors,
-					plot: self.plot,
-					language: self.language,
-					country: self.country,
-					awards: self.awards,
-					poster: self.poster,
-					metascore: self.metascore,
-					imdbRating: self.imdbRating,
-					imdbVotes: self.imdbVotes,
-					imdbID: self.imdbID,
-					type: self.type
+					Title: self.title(),
+					Year: self.year(),
+					Rated: self.rating(),
+					Released: self.released(),
+					Runtime: self.runtime(),
+                    Genre: self.genre(),
+					Director: self.director(),
+					Writer: self.writer(),
+					Actors: self.actors(),
+					Plot: self.plot(),
+					Language: self.language(),
+					Country: self.country(),
+					Awards: self.awards(),
+					Poster: self.poster(),
+					Metascore: self.metascore(),
+					imdbRating: self.imdbRating(),
+					imdbVotes: self.imdbVotes(),
+					imdbID: self.imdbID(),
+					Type: self.type()
 				};
+                console.log(JSON.stringify(request));
 				$.ajax({
 					method: 'POST',
 					url: '<c:url value="/api/movie"/>',
 					data: JSON.stringify(request),
 					dataType: 'json',
-					contentType: 'application/json'
+					contentType: 'application/json',
+                    success: function(data, status) {
+                        alert("success");
+                    }
 				});
 			};
 
