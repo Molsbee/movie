@@ -73,7 +73,6 @@ public class TitleResponse {
 
     public Movie toMovie() {
         List<String> actorList = Arrays.asList(actors.split(","));
-        List<String> genreList = Arrays.asList(genre.split(","));
 
         return Movie.builder()
                 .title(title)
@@ -81,10 +80,6 @@ public class TitleResponse {
                 .rating(rated)
                 .releaseDate(released)
                 .runtime(runtime)
-                .genre(genreList.stream().map(g -> {
-                    g = g.trim();
-                    return new Genre(g);
-                }).collect(Collectors.toList()))
                 .director(director)
                 .writer(writer)
                 .actors(actorList.stream().map(a -> {

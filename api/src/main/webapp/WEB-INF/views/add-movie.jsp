@@ -172,7 +172,7 @@
                 self.text("Searching");
                 $.ajax({
                     method: 'GET',
-                    url: '<c:url value="/api/movie/title/"/>' + encodeURIComponent(parent.title()),
+                    url: '<c:url value="/api/movie/search/"/>' + encodeURIComponent(parent.title()) + "?type=title",
                     success: function(data) {
                         parent.year(data.Year);
                         parent.rating(data.Rated);
