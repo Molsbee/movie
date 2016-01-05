@@ -16,15 +16,21 @@
 </head>
 <body>
 <%@ include file="banner.jsp"%>
-
-<div data-bind="foreach: genres">
-	<div class="row" style="padding-top: 20px">
-		<div class="col-md-3" data-bind="foreach: movies">
-			<a href-="#" class="thumbnail">
-				<img data-bind="attr: {src: poster}">
-			</a>
+<div class="container">
+	<!-- ko foreach: genres -->
+	<div class="row">
+		<h3 data-bind="text: name"></h3>
+		<div class="row">
+			<!-- ko foreach: movies -->
+			<div class="col-md-2">
+				<a href="#" class="thumbnail">
+					<img data-bind="attr: {src: poster}">
+				</a>
+			</div>
+			<!-- /ko -->
 		</div>
 	</div>
+	<!-- /ko -->
 </div>
 
 
@@ -63,7 +69,7 @@
 		self.movies = ko.observableArray();
 		$.ajax({
 			method: 'GET',
-			url: '<c:url value="/api/movie/list/"/>' + "?genre=" + self.name() + "&page=0&pagesize=4",
+			url: '<c:url value="/api/movie/list/"/>' + "?genre=" + self.name() + "&page=0&pagesize=6",
 			success: function(data) {
 				var tempMovies = [];
 				for (i = 0; i < data.length; i++) {

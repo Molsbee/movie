@@ -1,9 +1,11 @@
 package org.molsbee.movie.controller;
 
 import lombok.extern.log4j.Log4j;
+import org.molsbee.movie.model.Actor;
 import org.molsbee.movie.model.Genre;
 import org.molsbee.movie.model.Movie;
 import org.molsbee.movie.model.omdb.TitleResponse;
+import org.molsbee.movie.service.ActorService;
 import org.molsbee.movie.service.GenreService;
 import org.molsbee.movie.service.MovieLookup;
 import org.molsbee.movie.service.MovieService;
@@ -29,6 +31,9 @@ public class MovieResource {
 
     @Autowired
     private GenreService genreService;
+
+    @Autowired
+    private ActorService actorService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, params = {"genre", "page", "pagesize"})
     public ResponseEntity<List<Movie>> getMovies(@RequestParam(value = "genre", required = false) String genre,
@@ -56,13 +61,14 @@ public class MovieResource {
         }
     }
 
-    // TODO Need to do Similar work for Actors as was done for Genre
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createMovie(@RequestBody TitleResponse titleResponse) {
         List<Genre> genres = genreService.findOrCreate(titleResponse.getGenre());
+        List<Actor> actors = actorService.findOrCreate(titleResponse.getActors());
 
         Movie movie = titleResponse.toMovie();
         movie.setGenre(genres);
+        movie.setActors(actors);
 
         movieService.save(movie);
         return new ResponseEntity(HttpStatus.CREATED);

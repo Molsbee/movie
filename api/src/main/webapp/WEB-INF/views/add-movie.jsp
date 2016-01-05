@@ -174,6 +174,7 @@
                     method: 'GET',
                     url: '<c:url value="/api/movie/search/"/>' + encodeURIComponent(parent.title()) + "?type=title",
                     success: function(data) {
+						parent.title(data.Title);
                         parent.year(data.Year);
                         parent.rating(data.Rated);
                         parent.released(data.Released);

@@ -3,14 +3,8 @@ package org.molsbee.movie.model.omdb;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import org.molsbee.movie.model.Actor;
-import org.molsbee.movie.model.Genre;
 import org.molsbee.movie.model.Movie;
 import org.molsbee.movie.omdb.Type;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @JsonIgnoreProperties(value = {"Response"})
@@ -72,8 +66,6 @@ public class TitleResponse {
     private String type;
 
     public Movie toMovie() {
-        List<String> actorList = Arrays.asList(actors.split(","));
-
         return Movie.builder()
                 .title(title)
                 .year(year)
@@ -82,11 +74,6 @@ public class TitleResponse {
                 .runtime(runtime)
                 .director(director)
                 .writer(writer)
-                .actors(actorList.stream().map(a -> {
-                    a = a.trim();
-                    String[] names = a.split(" ");
-                    return Actor.builder().firstName(names[0]).lastName(names[1]).build();
-                }).collect(Collectors.toList()))
                 .plot(plot)
                 .language(language)
                 .country(country)

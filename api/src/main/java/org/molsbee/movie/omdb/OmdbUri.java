@@ -45,7 +45,7 @@ public class OmdbUri {
         private String key = "t";
         private Type type = Type.MOVIE;
         private Integer year;
-        private Plot plot = Plot.FULL;
+        private Plot plot = Plot.SHORT;
         private int version = 1;
 
         public Builder(String title) {
