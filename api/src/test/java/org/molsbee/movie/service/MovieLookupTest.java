@@ -41,11 +41,11 @@ public class MovieLookupTest {
     public void getMovieByTitle() throws Exception {
         // arrange
         String movieTitle = "Green Lantern";
-        String uri = "http://www.omdbapi.com/?t=Green+Lantern&y=&plot=full&r=json";
+        String uri = "http://www.omdbapi.com/?t=Green+Lantern&y=&plot=short&r=json";
         when(restTemplate.getForObject(uri, TitleResponse.class)).thenReturn(omdbTitleResponse);
 
         // act
-        TitleResponse actualResponse = lookupService.getMovieByTitle("Green Lantern");
+        TitleResponse actualResponse = lookupService.getMovieByTitle(movieTitle);
 
         // assert
         assertEquals(omdbTitleResponse.getTitle(), actualResponse.getTitle());
@@ -73,7 +73,7 @@ public class MovieLookupTest {
     public void searchMovieByTitle() throws Exception {
         // arrange
         String movieTitle = "Green";
-        String uri = "http://www.omdbapi.com/?s=" + movieTitle + "&y=&plot=full&r=json";
+        String uri = "http://www.omdbapi.com/?s=" + movieTitle + "&y=&plot=short&r=json";
         when(restTemplate.getForObject(uri, Search.class)).thenReturn(omdbSearchResponse);
 
         // act

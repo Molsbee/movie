@@ -17,10 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 @Controller
 @Log4j
-@RequestMapping(value = "/api/movie", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/movies", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MovieResource {
 
     @Autowired
@@ -35,11 +37,11 @@ public class MovieResource {
     @Autowired
     private ActorService actorService;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET, params = {"genre", "page", "pagesize"})
-    public ResponseEntity<List<Movie>> getMovies(@RequestParam(value = "genre", required = false) String genre,
-                                           @RequestParam(value = "page") int page,
-                                           @RequestParam(value = "pagesize") int pagesize) {
-        List<Movie> movies = (genre != null) ? movieService.list(genre, page, pagesize) : movieService.list(page, pagesize);
+    @RequestMapping(method = RequestMethod.GET, params = {"genre", "page", "size"})
+    public ResponseEntity getMovies(@RequestParam(value = "genre", required = false) String genre,
+                                    @RequestParam(value = "page", required = false) Integer page,
+                                    @RequestParam(value = "size", required = false) Integer size) {
+        List<Movie> movies = movieService.list(Optional.ofNullable(genre), OptionalInt.of(page), OptionalInt.of(size));
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
@@ -53,7 +55,8 @@ public class MovieResource {
      * @return
      */
     @RequestMapping(value = "/search/{title}", method = RequestMethod.GET, params = {"type"})
-    public ResponseEntity<?> searchMovie(@PathVariable("title") String title, @RequestParam(value = "type", required = false) String type) {
+    public ResponseEntity searchMovie(@PathVariable("title") String title,
+                                         @RequestParam(value = "type", required = false) String type) {
         if (type.equalsIgnoreCase("title")) {
             return new ResponseEntity(movieLookup.getMovieByTitle(title), HttpStatus.OK);
         } else {
