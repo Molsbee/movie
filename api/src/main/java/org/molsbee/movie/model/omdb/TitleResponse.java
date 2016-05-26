@@ -2,9 +2,14 @@ package org.molsbee.movie.model.omdb;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 import org.molsbee.movie.model.Movie;
 import org.molsbee.movie.omdb.Type;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 @JsonIgnoreProperties(value = {"Response"})
@@ -26,7 +31,7 @@ public class TitleResponse {
     private String runtime;
 
     @JsonProperty("Genre")
-    private String genre;
+    private String genres;
 
     @JsonProperty("Director")
     private String director;
@@ -85,6 +90,14 @@ public class TitleResponse {
                 .imdbId(imdbId)
                 .type(Type.fromString(type))
                 .build();
+    }
+
+    public List<String> getGenres() {
+        return Arrays.asList(genres.split(","));
+    }
+
+    public List<String> getActors() {
+        return Arrays.asList(actors.split(","));
     }
 
 }

@@ -8,25 +8,24 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 
-@Service
 @Log4j
+@Transactional
+@Service
 public class MovieService {
 
     @Autowired
     private MovieRepository movieRepository;
 
-    @Transactional
     public void save(Movie movie) {
         movieRepository.save(movie);
     }
 
-    @Transactional
     public List<Movie> list(Optional<String> genre, OptionalInt page, OptionalInt size) {
         if (genre.isPresent()) {
             return findAllFilteredByGenre(genre.get(), page, size);
@@ -47,6 +46,14 @@ public class MovieService {
             return movies.getContent();
         }
         return movieRepository.findAll();
+    }
+
+    public List<Movie> findByTitle(String title) {
+        return movieRepository.findByTitle(title);
+    }
+
+    public Movie findById(Integer id) {
+        return movieRepository.findOne(id);
     }
 
 }

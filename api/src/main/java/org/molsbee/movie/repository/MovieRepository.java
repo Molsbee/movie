@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
-    Movie findByTitle(String title);
+    List<Movie> findByTitle(String title);
 
     List<Movie> findByGenreName(String name);
 

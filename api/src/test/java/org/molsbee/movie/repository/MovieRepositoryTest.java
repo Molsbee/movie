@@ -10,6 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -28,12 +30,12 @@ public class MovieRepositoryTest {
         final String title = "Green Lantern";
 
         // act
-        Movie movie = movieRepository.findByTitle(title);
+        List<Movie> movie = movieRepository.findByTitle(title);
 
         // assert
         assertNotNull(movie);
-        assertTrue(!movie.getActors().isEmpty());
-        assertTrue(!movie.getGenre().isEmpty());
+        assertTrue(!movie.get(0).getActors().isEmpty());
+        assertTrue(!movie.get(0).getGenre().isEmpty());
     }
 
 }

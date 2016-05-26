@@ -5,7 +5,6 @@ import org.molsbee.movie.repository.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,13 +16,16 @@ public class ActorService {
     private ActorRepository actorRepository;
 
 
-    public List<Actor> findOrCreate(String actors) {
-        List<String> actorList = Arrays.asList(actors.split(","));
-
-        return actorList.stream().map(a -> {
+    public List<Actor> findOrCreate(List<String> actors) {
+        List<Actor> actorList = actors.stream().map(a -> {
             String[] name = a.trim().split(" ");
-            Actor actor = actorRepository.findByFirstNameAndLastName(name[0], name[1]);
-            return Optional.ofNullable(actor).orElse(Actor.builder().firstName(name[0]).lastName(name[1]).build());
+            String firstName = name[0];
+            String lastName = name[1];
+            Actor actor =  actorRepository.findByFirstNameAndLastName(firstName, lastName);
+            return Optional.ofNullable(actor)
+                    .orElse(Actor.builder().firstName(firstName).lastName(lastName).build());
         }).collect(Collectors.toList());
+
+        return actorRepository.save(actorList);
     }
 }

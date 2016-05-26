@@ -5,6 +5,7 @@ import org.molsbee.movie.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +17,15 @@ public class GenreService {
     @Autowired
     private GenreRepository genreRepository;
 
-    public List<Genre> findOrCreate(String genres) {
-        List<String> genreList = Arrays.asList(genres.split(","));
-        return genreList.stream().map(g -> Optional.ofNullable(genreRepository.findOne(g.trim())).orElse(new Genre(g.trim()))).collect(Collectors.toList());
+    @Transactional
+    public List<Genre> findOrCreate(List<String> genres) {
+        List<Genre> genreList = genres.stream().map(g -> {
+            String genre = g.trim();
+            return Optional.ofNullable(genreRepository.findOne(genre))
+                    .orElse(new Genre(genre));
+        }).collect(Collectors.toList());
+
+        return genreRepository.save(genreList);
     }
 
 }

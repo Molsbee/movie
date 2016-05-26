@@ -22,10 +22,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MovieLookupTest {
+public class OmdbServiceTest {
 
     @Mock private RestTemplate restTemplate;
-    @InjectMocks private MovieLookup lookupService;
+    @InjectMocks private OmdbService lookupService;
 
     private static ObjectMapper mapper = new ObjectMapper();
     private static TitleResponse omdbTitleResponse;
@@ -53,7 +53,7 @@ public class MovieLookupTest {
         assertEquals(omdbTitleResponse.getRated(), actualResponse.getRated());
         assertEquals(omdbTitleResponse.getReleased(), actualResponse.getReleased());
         assertEquals(omdbTitleResponse.getRuntime(), actualResponse.getRuntime());
-        assertEquals(omdbTitleResponse.getGenre(), actualResponse.getGenre());
+        assertEquals(omdbTitleResponse.getGenres(), actualResponse.getGenres());
         assertEquals(omdbTitleResponse.getDirector(), actualResponse.getDirector());
         assertEquals(omdbTitleResponse.getWriter(), actualResponse.getWriter());
         assertEquals(omdbTitleResponse.getActors(), actualResponse.getActors());

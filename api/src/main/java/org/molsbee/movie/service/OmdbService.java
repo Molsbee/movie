@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @Log4j
-public class MovieLookup {
+public class OmdbService {
 
     @Autowired
     private RestTemplate restTemplate;
