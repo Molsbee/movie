@@ -18,24 +18,24 @@
 <body>
 	<%@ include file="../banner.jsp" %>
 	<div class="container-fluid">
-		<div class="col-lg-4" data-bind="with: search">
+		<div class="col-lg-5" data-bind="with: search">
 			<form class="form-horizontal" role="form" name="search-movies">
 				<fieldset data-bind="disabled">
 					<div class="form-group">
 						<label class="col-sm-4 control-label" for="search">Title:</label>
-						<div class="col-sm-8">
+						<div class="col-sm-6">
 							<input text="text" class="form-control" id="search" placeholder="Guardians of the Galaxy" data-bind="value: value">
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-sm-offset-4 col-sm-4">
+						<div class="col-sm-offset-4 col-sm-3">
 							<button class="form-control btn btn-primary" data-bind="text: buttonText, click: execute">Search</button>
 						</div>
 					</div>
 				</fieldset>
 			</form>
 
-			<div class="list-group">
+			<div class="col-sm-offset-4 list-group">
 				<!-- ko foreach: movies -->
 				<a href="#" class="list-group-item" data-bind="attr: { title: description}, click: $parent.selectMovie">
 					<span data-bind="text: title"></span>
@@ -44,124 +44,124 @@
 			</div>
 		</div>
 
-		<form class="form-horizontal col-lg-8" role="form" name="add-movie">
+		<form class="form-horizontal col-lg-7" role="form" name="add-movie">
 			<fieldset data-bind="disable: saving">
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="title">Title:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="title" placeholder="Example: Donnie Darko" data-bind="value: title">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="year">Year:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="year" placeholder="Example: 2001" data-bind="value: year">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="rating">Rating:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="rating" placeholder="Example: R" data-bind="value: rating">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="released">Released:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="released" placeholder="Example: 30 Jan 2002" data-bind="value: released">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="runtime">Runtime:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="runtime" placeholder="Example: 113 min" data-bind="value: runtime">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="genre">Genre:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="genre" placeholder="Example: Drama, Mystery, Sci-Fi" data-bind="value: genre">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="director">Director:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="director" placeholder="Example: Richard Kelly" data-bind="value: director">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="writer">Writer:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="writer" placeholder="Example: Richard Kelly" data-bind="value: writer">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="actors">Actors:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="actors" placeholder="Example: Jake Gyllenhall, Holmes Osborne, Maggie Gyllenhaal, Daveigh Chase" data-bind="value: actors">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="plot">Plot:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<textarea class="form-control" id="plot" rows="5" placeholder="Example: A troubled teenager is plagued by visions of a large bunny rabbit that manipulates him to commit a series of crimes, after narrowly escaping a bizarre accident." data-bind="value: plot"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="language">Language:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="language" placeholder="Example: English" data-bind="value: language">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="country">Country:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="country" placeholder="Example: USA" data-bind="value: country">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="awards">Awards:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="awards" placeholder="Example: 11 wins & 12 nominations" data-bind="value: awards">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="poster">Poster:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="poster" placeholder="Example: http://ia.media-imdb.com/images/M/MV5BMTczMzE4Nzk3N15BMl5BanBnXkFtZTcwNDg5Mjc4NA@@._V1_SX300.jpg" data-bind="value: poster">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="metascore">Metascore:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="metascore" placeholder="Example: 71" data-bind="value: metascore">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="imdbRating">IMDB Rating:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="imdbRating" placeholder="Example: 8.1" data-bind="value: imdbRating">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="imdbVotes">IMDB Votes:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="imdbVotes" placeholder="Example: 454,083" data-bind="value: imdbVotes">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="imdbID">IMDB ID:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="imdbID" placeholder="Example: tt0246578" data-bind="value: imdbID">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="type">Type:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="type" placeholder="Example: movie" data-bind="value: type">
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-1">
+					<div class="col-sm-offset-2 col-sm-2">
 						<button class="form-control btn btn-primary" id="submit" data-bind="click: save">Submit</button>
 					</div>
 				</div>
