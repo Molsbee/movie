@@ -31,7 +31,7 @@ public class OmdbUri {
 
     @SneakyThrows
     public String get() {
-        String t = "?" + key + "=" + URLEncoder.encode(this.title, "UTF-8");
+        String t = "?" + key + "=" + this.title;
         String y = "&y=" + year.orElse("");
         String p = "&plot=" + plot.name().toLowerCase();
         String dataType = "&r=json";

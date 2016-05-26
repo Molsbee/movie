@@ -28,7 +28,7 @@ public class HomeResource {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create() {
-        return "add-movie";
+        return "movie/create";
     }
 
 }

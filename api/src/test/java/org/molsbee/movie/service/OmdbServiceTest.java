@@ -41,7 +41,7 @@ public class OmdbServiceTest {
     public void getMovieByTitle() throws Exception {
         // arrange
         String movieTitle = "Green Lantern";
-        String uri = "http://www.omdbapi.com/?t=Green+Lantern&y=&plot=short&r=json";
+        String uri = "http://www.omdbapi.com/?t=Green Lantern&y=&plot=short&r=json";
         when(restTemplate.getForObject(uri, TitleResponse.class)).thenReturn(omdbTitleResponse);
 
         // act
