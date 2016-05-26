@@ -15,13 +15,13 @@ import java.util.List;
 
 @Controller
 @Log4j
-@RequestMapping(value = "/api/genre", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/genres", produces = MediaType.APPLICATION_JSON_VALUE)
 public class GenreResource {
 
     @Autowired
     private GenreRepository genreRepository;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Genre>> getGenres() {
         return new ResponseEntity(genreRepository.findAll(), HttpStatus.OK);
     }
