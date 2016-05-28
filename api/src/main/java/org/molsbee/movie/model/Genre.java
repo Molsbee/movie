@@ -1,5 +1,6 @@
 package org.molsbee.movie.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,17 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "genre")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Genre {
 
     @Id
     @Column(name = "genre_name")
     private String name;
-
-    public Genre(String name) {
-        this.name = name;
-    }
 
 }

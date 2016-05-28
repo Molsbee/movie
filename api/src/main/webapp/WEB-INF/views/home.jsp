@@ -15,8 +15,8 @@
 	<![endif]-->
 </head>
 <body>
-<%@ include file="banner.jsp"%>
-<div class="container">
+<%@ include file="navbar.jsp"%>
+<div class="container" id="mainContent">
 	<!-- ko foreach: genres -->
 	<div class="row">
 		<h3 data-bind="text: name"></h3>
@@ -33,12 +33,6 @@
 	<!-- /ko -->
 </div>
 
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.11.4/jquery-ui.min.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.3.0.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.3/knockout.validation.min.js"></script>
-<script src="<c:url value="/js/bootstrap.js" />"></script>
 <script>
 	function Movie(data) {
 		var self = this;
@@ -69,7 +63,7 @@
 		self.movies = ko.observableArray();
 		$.ajax({
 			method: 'GET',
-			url: '<c:url value="/api/movie/list/"/>' + "?genre=" + self.name() + "&page=0&pagesize=6",
+			url: '<c:url value="/movies?genre="/>' + self.name() + "&page=0&size=6",
 			success: function(data) {
 				var tempMovies = [];
 				for (i = 0; i < data.length; i++) {
@@ -88,7 +82,7 @@
 		self.genres = ko.observableArray();
 		$.ajax({
 			method: 'GET',
-			url: '<c:url value="/api/genre/list"/>',
+			url: '<c:url value="/genres"/>',
 			success: function(data) {
 				var tempGenre = [];
 				for (i = 0; i < data.length; i++) {
@@ -101,7 +95,7 @@
 		return self;
 	};
 	$(function() {
-		ko.applyBindings(new ModelView());
+		ko.applyBindings(new ModelView(), document.getElementById("mainContent"));
 	});
 </script>
 </body>

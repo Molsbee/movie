@@ -16,8 +16,8 @@
 </head>
 	
 <body>
-	<%@ include file="../banner.jsp" %>
-	<div class="container-fluid">
+	<%@ include file="../navbar.jsp" %>
+	<div class="container-fluid" id="mainContent">
 		<div class="col-lg-5" data-bind="with: search">
 			<form class="form-horizontal" role="form" name="search-movies">
 				<fieldset data-bind="disabled">
@@ -168,12 +168,6 @@
 			</fieldset>
 		</form>
 	</div>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.11.4/jquery-ui.min.js"></script>
-	<script src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.3.0.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.3/knockout.validation.min.js"></script>
-	<script src="<c:url value="/js/bootstrap.js" />"></script>
 	<script src="<c:url value="/js/model/Movie.js" />"></script>
 	<script>
 		function Search() {
@@ -195,7 +189,6 @@
 						var movies = [];
 						for (i = 0; i < data.length; i++) {
 							var movie = new SearchResponse(data[i]);
-							console.log(movie)
 							movies.push(movie);
 						}
 						self.movies(movies);
@@ -312,8 +305,8 @@
 
 			return self;
 		}
-		$(function () {
-			ko.applyBindings(new ModelView());
+		$(function() {
+			ko.applyBindings(new ModelView(), document.getElementById("mainContent"));
 		});
 	</script>
 </body>
