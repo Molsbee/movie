@@ -21,21 +21,12 @@
 									<li><a href="<c:url value="/"/>">Home</a></li>
 									<li><a href="<c:url value="/create"/>">Create</a></li>
 								</ul>
-								<ul id="movies-1" class="list-unstyled col-md-5">
+								<ul class="list-unstyled col-md-5">
 									<li>Movie Genres</li>
 									<li class="divider"></li>
-									<li>Action &amp; Adventure</li>
-									<li>Comedies</li>
-									<li>Dramas</li>
-									<li>Horror</li>
-								</ul>
-								<ul id="movies-2" class="list-unstyled col-md-5">
-									<li>&nbsp;</li>
-									<li class="divider"></li>
-									<li>Romance</li>
-									<li>Sci-Fi &amp; Fantasy</li>
-									<li>Sports Movies</li>
-									<li>Thrillers</li>
+									<!-- ko foreach: genres -->
+									<li><span data-bind="text: name"></span></li>
+									<!-- /ko -->
 								</ul>
 							</div>
 						</li>
@@ -77,7 +68,7 @@
 				var genres = [];
 				for (i = 0; i < data.length; i++) {
 					var genre = new Genre(data[i]);
-					console.log(genre)
+					console.log(genre);
 					genres.push(genre);
 				}
 				self.genres(genres);
