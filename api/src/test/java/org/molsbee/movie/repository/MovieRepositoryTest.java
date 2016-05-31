@@ -35,7 +35,7 @@ public class MovieRepositoryTest {
         // assert
         assertNotNull(movie);
         assertTrue(!movie.get(0).getActors().isEmpty());
-        assertTrue(!movie.get(0).getGenre().isEmpty());
+        assertTrue(!movie.get(0).getGenres().isEmpty());
     }
 
 }

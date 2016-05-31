@@ -8,9 +8,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.molsbee.movie.model.omdb.Search;
-import org.molsbee.movie.model.omdb.TitleResponse;
-import org.molsbee.movie.model.omdb.TitleSearchResponse;
+import org.molsbee.movie.model.web.omdb.SearchResponse;
+import org.molsbee.movie.model.web.omdb.TitleResponse;
+import org.molsbee.movie.model.web.omdb.SearchTitle;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.FileInputStream;
@@ -29,12 +29,12 @@ public class OmdbServiceTest {
 
     private static ObjectMapper mapper = new ObjectMapper();
     private static TitleResponse omdbTitleResponse;
-    private static Search omdbSearchResponse;
+    private static SearchResponse omdbSearchResponse;
 
     @BeforeClass
     public static void testSetup() throws IOException {
         omdbTitleResponse = mapper.readValue(IOUtils.toString(new FileInputStream("src/test/resources/org/molsbee/movie/service/omdb-response.json")), TitleResponse.class);
-        omdbSearchResponse = mapper.readValue(IOUtils.toString(new FileInputStream("src/test/resources/org/molsbee/movie/service/movie-search.json")), Search.class);
+        omdbSearchResponse = mapper.readValue(IOUtils.toString(new FileInputStream("src/test/resources/org/molsbee/movie/service/movie-search.json")), SearchResponse.class);
     }
 
     @Test
@@ -74,10 +74,10 @@ public class OmdbServiceTest {
         // arrange
         String movieTitle = "Green";
         String uri = "http://www.omdbapi.com/?s=" + movieTitle + "&y=&plot=short&r=json";
-        when(restTemplate.getForObject(uri, Search.class)).thenReturn(omdbSearchResponse);
+        when(restTemplate.getForObject(uri, SearchResponse.class)).thenReturn(omdbSearchResponse);
 
         // act
-        List<TitleSearchResponse> response = lookupService.searchMovieByTitle(movieTitle);
+        List<SearchTitle> response = lookupService.searchMovieByTitle(movieTitle);
 
         // assert
         assertNotNull(response);

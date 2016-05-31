@@ -22,8 +22,8 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
-    public void save(Movie movie) {
-        movieRepository.save(movie);
+    public Movie save(Movie movie) {
+        return movieRepository.save(movie);
     }
 
     public List<Movie> list(Optional<String> genre, OptionalInt page, OptionalInt size) {
@@ -35,9 +35,9 @@ public class MovieService {
 
     private List<Movie> findAllFilteredByGenre(String genre, OptionalInt page, OptionalInt size) {
         if (page.isPresent() && size.isPresent()) {
-            return movieRepository.findByGenreName(genre, new PageRequest(page.getAsInt(), size.getAsInt(), Sort.Direction.DESC, "title"));
+            return movieRepository.findByGenresName(genre, new PageRequest(page.getAsInt(), size.getAsInt(), Sort.Direction.DESC, "title"));
         }
-        return movieRepository.findByGenreName(genre);
+        return movieRepository.findByGenresName(genre);
     }
 
     private List<Movie> findAll(OptionalInt page, OptionalInt size) {

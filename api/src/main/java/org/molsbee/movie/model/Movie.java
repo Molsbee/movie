@@ -1,6 +1,5 @@
 package org.molsbee.movie.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -44,7 +43,7 @@ public class Movie implements Serializable {
     @JoinTable(name = "movie_genres",
             joinColumns = @JoinColumn(name = "genre_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    private List<Genre> genre =  new ArrayList<>();
+    private List<Genre> genres =  new ArrayList<>();
 
     @Column(name = "director")
     private String director;
@@ -82,23 +81,23 @@ public class Movie implements Serializable {
     @Column(name = "imdbVotes")
     private String imdbVotes;
 
-    @Column(name = "imdbId")
-    private String imdbId;
+    @Column(name = "imdbID")
+    private String imdbID;
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private Type type;
 
     @Builder
-    public Movie(String title, String year, String rating, String releaseDate, String runtime, List<Genre> genre,
+    public Movie(String title, String year, String rating, String releaseDate, String runtime, List<Genre> genres,
                  String director, String writer, List<Actor> actors, String plot, String language, String country,
-                 String awards ,String poster, String metascore, String imdbRating, String imdbVotes, String imdbId, Type type) {
+                 String awards ,String poster, String metascore, String imdbRating, String imdbVotes, String imdbID, Type type) {
         this.title = title;
         this.year = year;
         this.rating = rating;
         this.releaseDate = releaseDate;
         this.runtime = runtime;
-        this.genre = genre;
+        this.genres = genres;
         this.director = director;
         this.writer = writer;
         this.actors = actors;
@@ -110,7 +109,7 @@ public class Movie implements Serializable {
         this.metascore = metascore;
         this.imdbRating = imdbRating;
         this.imdbVotes = imdbVotes;
-        this.imdbId = imdbId;
+        this.imdbID = imdbID;
         this.type = type;
     }
 

@@ -1,12 +1,8 @@
-package org.molsbee.movie.model.omdb;
+package org.molsbee.movie.model.web.omdb;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
-import org.molsbee.movie.model.Movie;
-import org.molsbee.movie.omdb.Type;
 
 import java.util.Arrays;
 import java.util.List;
@@ -69,28 +65,6 @@ public class TitleResponse {
 
     @JsonProperty("Type")
     private String type;
-
-    public Movie toMovie() {
-        return Movie.builder()
-                .title(title)
-                .year(year)
-                .rating(rated)
-                .releaseDate(released)
-                .runtime(runtime)
-                .director(director)
-                .writer(writer)
-                .plot(plot)
-                .language(language)
-                .country(country)
-                .awards(awards)
-                .poster(poster)
-                .metascore(metascore)
-                .imdbRating(imdbRating)
-                .imdbVotes(imdbVotes)
-                .imdbId(imdbId)
-                .type(Type.fromString(type))
-                .build();
-    }
 
     public List<String> getGenres() {
         return Arrays.asList(genres.split(","));

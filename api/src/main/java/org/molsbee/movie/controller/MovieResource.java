@@ -4,7 +4,7 @@ import lombok.extern.log4j.Log4j;
 import org.molsbee.movie.model.Actor;
 import org.molsbee.movie.model.Genre;
 import org.molsbee.movie.model.Movie;
-import org.molsbee.movie.model.omdb.TitleResponse;
+import org.molsbee.movie.model.web.CreateMovieRequest;
 import org.molsbee.movie.service.ActorService;
 import org.molsbee.movie.service.GenreService;
 import org.molsbee.movie.service.MovieService;
@@ -38,7 +38,7 @@ public class MovieResource {
     private ActorService actorService;
 
     @RequestMapping(method = RequestMethod.GET, params = {"genre", "page", "size"})
-    public ResponseEntity getMovies(@RequestParam(value = "genre", required = false) String genre,
+    public ResponseEntity<List<Movie>> getMovies(@RequestParam(value = "genre", required = false) String genre,
                                     @RequestParam(value = "page", required = false) Integer page,
                                     @RequestParam(value = "size", required = false) Integer size) {
         List<Movie> movies = movieService.list(Optional.ofNullable(genre), OptionalInt.of(page), OptionalInt.of(size));
@@ -46,13 +46,13 @@ public class MovieResource {
     }
 
     @RequestMapping(value = "/{title}", method = RequestMethod.GET)
-    public ResponseEntity findByTitle(@PathVariable String title) {
+    public ResponseEntity<Movie> findByTitle(@PathVariable String title) {
         List<Movie> movies = movieService.findByTitle(title);
         return new ResponseEntity(movies, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{movieId}", method = RequestMethod.GET)
-    public ResponseEntity findByMovieId(@PathVariable Integer id) {
+    public ResponseEntity<Movie> findByMovieId(@PathVariable Integer id) {
         Movie movie = movieService.findById(id);
         return new ResponseEntity(movie, HttpStatus.OK);
     }
@@ -77,16 +77,16 @@ public class MovieResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity createMovie(@RequestBody TitleResponse titleResponse) {
-        List<Genre> genres = genreService.findOrCreate(titleResponse.getGenres());
-        List<Actor> actors = actorService.findOrCreate(titleResponse.getActors());
+    public ResponseEntity<Movie> createMovie(@RequestBody CreateMovieRequest createMovieRequest) {
+        List<Genre> genres = genreService.findOrCreate(createMovieRequest.getGenres());
+        List<Actor> actors = actorService.findOrCreate(createMovieRequest.getActors());
 
-        Movie movie = titleResponse.toMovie();
-        movie.setGenre(genres);
+        Movie movie = createMovieRequest.toMovie();
+        movie.setGenres(genres);
         movie.setActors(actors);
 
-        movieService.save(movie);
-        return new ResponseEntity(HttpStatus.CREATED);
+        movie = movieService.save(movie);
+        return new ResponseEntity(movie, HttpStatus.OK);
     }
 
 }

@@ -1,10 +1,10 @@
-package org.molsbee.movie.model.omdb;
+package org.molsbee.movie.model.web.omdb;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class TitleSearchResponse {
+public class SearchTitle {
 
     @JsonProperty("Title")
     private String title;

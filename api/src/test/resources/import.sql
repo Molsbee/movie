@@ -9,7 +9,7 @@ insert into genre(genre_name) values ('Sci-Fi');
 insert into genre(genre_name) values ('Action');
 insert into genre(genre_name) values ('Adventure');
 
-insert into movie(id, title, year, rating, release_date, runtime, director, writer, plot, language, country, awards, poster, metascore, imdbRating, imdbVotes, imdbId, type) values (1, 'Green Lantern', '2011', 'PG-13', '17 Jun 2011', '114 min', 'Martin Campbell', 'Greg Berlanti', 'Reckless', 'English', 'USA', '1 win & 5 nominations', 'https://poster.com', '39', '5.7', '197161', 'tt1133985', 'MOVIE');
+insert into movie(id, title, year, rating, release_date, runtime, director, writer, plot, language, country, awards, poster, metascore, imdbRating, imdbVotes, imdbID, type) values (1, 'Green Lantern', '2011', 'PG-13', '17 Jun 2011', '114 min', 'Martin Campbell', 'Greg Berlanti', 'Reckless', 'English', 'USA', '1 win & 5 nominations', 'https://poster.com', '39', '5.7', '197161', 'tt1133985', 'MOVIE');
 
 insert into movie_actors values (1, 1);
 insert into movie_actors values (1, 2);

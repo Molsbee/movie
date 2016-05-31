@@ -65,9 +65,9 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label" for="released">Released:</label>
+					<label class="col-sm-2 control-label" for="releaseDate">Released:</label>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" id="released" placeholder="Example: 30 Jan 2002" data-bind="value: released">
+						<input type="text" class="form-control" id="releaseDate" placeholder="Example: 30 Jan 2002" data-bind="value: releaseDate">
 					</div>
 				</div>
 				<div class="form-group">
@@ -77,9 +77,9 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label" for="genre">Genre:</label>
+					<label class="col-sm-2 control-label" for="genres">Genre:</label>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" id="genre" placeholder="Example: Drama, Mystery, Sci-Fi" data-bind="value: genre">
+						<input type="text" class="form-control" id="genres" placeholder="Example: Drama, Mystery, Sci-Fi" data-bind="value: genres">
 					</div>
 				</div>
 				<div class="form-group">
@@ -213,9 +213,9 @@
 			self.title = ko.observable();
 			self.year = ko.observable();
 			self.rating = ko.observable();
-			self.released = ko.observable();
+			self.releaseDate = ko.observable();
 			self.runtime = ko.observable();
-			self.genre = ko.observable();
+			self.genres = ko.observable();
 			self.director = ko.observable();
 			self.writer = ko.observable();
 			self.actors = ko.observable();
@@ -239,9 +239,9 @@
 						self.title(data.Title);
 						self.year(data.Year);
 						self.rating(data.Rated);
-						self.released(data.Released);
+						self.releaseDate(data.Released);
 						self.runtime(data.Runtime);
-						self.genre(data.Genre);
+						self.genres(data.Genre);
 						self.director(data.Director);
 						self.writer(data.Writer);
 						self.actors(data.Actors);
@@ -259,38 +259,36 @@
 				});
 			});
 
-            self.disabled = ko.computed(function() {
-                return self.search.disabled();
-            });
-
 			self.saving = ko.observable(false);
             self.save = function() {
 				self.saving(true);
+
 				var request = {
-					Title: self.title(),
-					Year: self.year(),
-					Rated: self.rating(),
-					Released: self.released(),
-					Runtime: self.runtime(),
-                    Genre: self.genre(),
-					Director: self.director(),
-					Writer: self.writer(),
-					Actors: self.actors(),
-					Plot: self.plot(),
-					Language: self.language(),
-					Country: self.country(),
-					Awards: self.awards(),
-					Poster: self.poster(),
-					Metascore: self.metascore(),
+					title: self.title(),
+					year: self.year(),
+					rating: self.rating(),
+					releaseDate: self.releaseDate(),
+					runtime: self.runtime(),
+                    genres: self.genres(),
+					director: self.director(),
+					writer: self.writer(),
+					actors: self.actors(),
+					plot: self.plot(),
+					language: self.language(),
+					country: self.country(),
+					awards: self.awards(),
+					poster: self.poster(),
+					metascore: self.metascore(),
 					imdbRating: self.imdbRating(),
 					imdbVotes: self.imdbVotes(),
 					imdbID: self.imdbID(),
-					Type: self.type()
+					type: self.type()
 				};
+
                 console.log(JSON.stringify(request));
 				$.ajax({
 					method: 'POST',
-					url: '<c:url value="/api/movie"/>',
+					url: '<c:url value="/movies"/>',
 					data: JSON.stringify(request),
 					dataType: 'text',
 					contentType: 'application/json',
