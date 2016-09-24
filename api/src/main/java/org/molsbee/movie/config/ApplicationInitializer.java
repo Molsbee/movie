@@ -1,6 +1,6 @@
 package org.molsbee.movie.config;
 
-import org.molsbee.movie.security.config.SecurityConfig;
+import org.molsbee.movie.config.security.SecurityConfig;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;

@@ -19,9 +19,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories({
-        "org.molsbee.movie.repository", "org.molsbee.movie.security.repository"
-})
+@EnableJpaRepositories("org.molsbee.movie.repository")
 @Import({ Local.class, Live.class })
 public class PersistenceConfig {
 
@@ -34,7 +32,7 @@ public class PersistenceConfig {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-        entityManagerFactoryBean.setPackagesToScan("org.molsbee.movie.model", "org.molsbee.movie.security.model");
+        entityManagerFactoryBean.setPackagesToScan("org.molsbee.movie.model");
         entityManagerFactoryBean.setJpaProperties(hibernateProperties());
         return entityManagerFactoryBean;
     }

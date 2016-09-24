@@ -1,8 +1,8 @@
-package org.molsbee.movie.security.service;
+package org.molsbee.movie.service.security;
 
-import org.molsbee.movie.security.model.AccountAuthority;
-import org.molsbee.movie.security.model.ServiceAccount;
-import org.molsbee.movie.security.repository.ServiceAccountRepository;
+import org.molsbee.movie.model.security.AccountAuthority;
+import org.molsbee.movie.model.security.ServiceAccount;
+import org.molsbee.movie.repository.security.ServiceAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

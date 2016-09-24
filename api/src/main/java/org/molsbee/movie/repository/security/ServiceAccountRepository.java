@@ -1,6 +1,6 @@
-package org.molsbee.movie.security.repository;
+package org.molsbee.movie.repository.security;
 
-import org.molsbee.movie.security.model.ServiceAccount;
+import org.molsbee.movie.model.security.ServiceAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ServiceAccountRepository extends JpaRepository<ServiceAccount, String> {

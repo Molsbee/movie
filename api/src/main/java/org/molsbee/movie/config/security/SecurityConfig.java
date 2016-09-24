@@ -1,7 +1,7 @@
-package org.molsbee.movie.security.config;
+package org.molsbee.movie.config.security;
 
-import org.molsbee.movie.security.model.Authority;
-import org.molsbee.movie.security.service.ServiceAccountDetails;
+import org.molsbee.movie.model.security.Authority;
+import org.molsbee.movie.service.security.ServiceAccountDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,7 +18,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackages = {"org.molsbee.movie.security.service"})
 public class SecurityConfig {
 
     @Configuration

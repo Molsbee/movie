@@ -3,7 +3,8 @@ package org.molsbee.movie.omdb;
 public enum Type {
     MOVIE,
     SERIES,
-    EPISODE, Type;
+    EPISODE,
+    Type;
 
     public static Type fromString(String type) {
         Type[] types = Type.values();

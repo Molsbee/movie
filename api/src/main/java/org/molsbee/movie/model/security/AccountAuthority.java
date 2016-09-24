@@ -1,4 +1,4 @@
-package org.molsbee.movie.security.model;
+package org.molsbee.movie.model.security;
 
 import lombok.Data;
 

@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.molsbee.movie.config.ApplicationConfig;
-import org.molsbee.movie.security.config.SecurityConfig;
+import org.molsbee.movie.config.security.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
