@@ -17,6 +17,7 @@ public class AccountAuthority implements Serializable {
     private int id;
 
     @Column(name = "authority")
-    private String authority;
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
 
 }

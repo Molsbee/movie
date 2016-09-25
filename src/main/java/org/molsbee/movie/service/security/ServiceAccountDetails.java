@@ -26,7 +26,7 @@ public class ServiceAccountDetails implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         ServiceAccount serviceAccount = serviceAccountRepository.findOne(username);
         List<AccountAuthority> authorities = serviceAccount.getAuthorities();
-        List<GrantedAuthority> grantedAuthorities = authorities.stream().map(authority -> (GrantedAuthority) () -> authority.getAuthority()).collect(Collectors.toList());
+        List<GrantedAuthority> grantedAuthorities = authorities.stream().map(authority -> (GrantedAuthority) () -> authority.getAuthority().name()).collect(Collectors.toList());
         return new User(serviceAccount.getUsername(), serviceAccount.getPassword(), serviceAccount.isEnabled(), true, true, true, grantedAuthorities);
     }
 

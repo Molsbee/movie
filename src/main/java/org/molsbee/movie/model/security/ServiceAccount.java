@@ -1,8 +1,6 @@
 package org.molsbee.movie.model.security;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,8 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(exclude = {"authorities"})
 @Entity
 @Table(name = "service_accounts")
@@ -29,6 +26,7 @@ public class ServiceAccount implements Serializable {
     @Column(name = "enabled")
     private boolean enabled;
 
+    @Setter(AccessLevel.NONE)
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "username")
     private List<AccountAuthority> authorities = new ArrayList<>();
