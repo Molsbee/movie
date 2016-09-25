@@ -1,4 +1,4 @@
-package org.molsbee.movie.model;
+package org.molsbee.movie.model.database;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,10 +7,10 @@ import lombok.experimental.Builder;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Data
-@NoArgsConstructor
 @Entity
 @Table(name = "actor")
+@Data
+@NoArgsConstructor
 public class Actor implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -1,9 +1,9 @@
 package org.molsbee.movie.controller;
 
 import lombok.extern.log4j.Log4j;
-import org.molsbee.movie.model.Actor;
-import org.molsbee.movie.model.Genre;
-import org.molsbee.movie.model.Movie;
+import org.molsbee.movie.model.database.Actor;
+import org.molsbee.movie.model.database.Genre;
+import org.molsbee.movie.model.database.Movie;
 import org.molsbee.movie.model.web.CreateMovieRequest;
 import org.molsbee.movie.service.ActorService;
 import org.molsbee.movie.service.GenreService;

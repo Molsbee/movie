@@ -1,11 +1,12 @@
 package org.molsbee.movie.repository;
 
-import org.molsbee.movie.model.Actor;
+import org.molsbee.movie.model.database.Actor;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
+
+import java.util.Optional;
 
 public interface ActorRepository extends JpaRepository<Actor, Integer> {
 
-    Actor findByFirstNameAndLastName(String firstName, String lastName);
+    Optional<Actor> findByFirstNameAndLastName(String firstName, String lastName);
 
 }

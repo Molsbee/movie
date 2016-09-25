@@ -3,7 +3,7 @@ package org.molsbee.movie.repository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.molsbee.movie.config.PersistenceConfig;
-import org.molsbee.movie.model.Actor;
+import org.molsbee.movie.model.database.Actor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -29,7 +29,7 @@ public class ActorRepositoryTest {
         String lastName = "Reynolds";
 
         // act
-        Actor actor =  actorRepository.findByFirstNameAndLastName(firstName, lastName);
+        Actor actor =  actorRepository.findByFirstNameAndLastName(firstName, lastName).get();
 
         // assert
         assertNotNull(actor);

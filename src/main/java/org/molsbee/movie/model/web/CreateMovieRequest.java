@@ -1,7 +1,7 @@
 package org.molsbee.movie.model.web;
 
 import lombok.Data;
-import org.molsbee.movie.model.Movie;
+import org.molsbee.movie.model.database.Movie;
 import org.molsbee.movie.omdb.Type;
 
 import java.util.List;

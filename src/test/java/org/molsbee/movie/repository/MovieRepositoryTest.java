@@ -3,7 +3,7 @@ package org.molsbee.movie.repository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.molsbee.movie.config.PersistenceConfig;
-import org.molsbee.movie.model.Movie;
+import org.molsbee.movie.model.database.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -30,7 +31,7 @@ public class MovieRepositoryTest {
         final String title = "Green Lantern";
 
         // act
-        List<Movie> movie = movieRepository.findByTitle(title);
+        List<Movie> movie = movieRepository.findByTitle(title).collect(Collectors.toList());
 
         // assert
         assertNotNull(movie);

@@ -1,7 +1,7 @@
 package org.molsbee.movie.service;
 
 import lombok.extern.log4j.Log4j;
-import org.molsbee.movie.model.Movie;
+import org.molsbee.movie.model.database.Movie;
 import org.molsbee.movie.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
+import java.util.stream.Collectors;
 
 @Log4j
 @Transactional
@@ -35,9 +36,9 @@ public class MovieService {
 
     private List<Movie> findAllFilteredByGenre(String genre, OptionalInt page, OptionalInt size) {
         if (page.isPresent() && size.isPresent()) {
-            return movieRepository.findByGenresName(genre, new PageRequest(page.getAsInt(), size.getAsInt(), Sort.Direction.DESC, "title"));
+            return movieRepository.findByGenresName(genre, new PageRequest(page.getAsInt(), size.getAsInt(), Sort.Direction.DESC, "title")).collect(Collectors.toList());
         }
-        return movieRepository.findByGenresName(genre);
+        return movieRepository.findByGenresName(genre).collect(Collectors.toList());
     }
 
     private List<Movie> findAll(OptionalInt page, OptionalInt size) {
@@ -49,7 +50,7 @@ public class MovieService {
     }
 
     public List<Movie> findByTitle(String title) {
-        return movieRepository.findByTitle(title);
+        return movieRepository.findByTitle(title).collect(Collectors.toList());
     }
 
     public Movie findById(Integer id) {

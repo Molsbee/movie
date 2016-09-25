@@ -56,10 +56,11 @@
 		self.type = data.type;
 		return self;
 	};
+
 	function Genre(data) {
 		var self = this;
 
-		self.name = ko.observable(data.name);
+		self.name = ko.observable(data);
 		self.movies = ko.observableArray();
 		$.ajax({
 			method: 'GET',

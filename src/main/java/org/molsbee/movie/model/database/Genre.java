@@ -1,4 +1,4 @@
-package org.molsbee.movie.model;
+package org.molsbee.movie.model.database;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,9 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Data
 @Entity
 @Table(name = "genre")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Genre {
