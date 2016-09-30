@@ -31,7 +31,7 @@ public class MovieRepositoryTest {
         final String title = "Green Lantern";
 
         // act
-        List<Movie> movie = movieRepository.findByTitle(title).collect(Collectors.toList());
+        List<Movie> movie = movieRepository.findByTitle(title);
 
         // assert
         assertNotNull(movie);

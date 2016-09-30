@@ -36,9 +36,9 @@ public class MovieService {
 
     private List<Movie> findAllFilteredByGenre(String genre, OptionalInt page, OptionalInt size) {
         if (page.isPresent() && size.isPresent()) {
-            return movieRepository.findByGenresName(genre, new PageRequest(page.getAsInt(), size.getAsInt(), Sort.Direction.DESC, "title")).collect(Collectors.toList());
+            return movieRepository.findByGenresName(genre, new PageRequest(page.getAsInt(), size.getAsInt(), Sort.Direction.DESC, "title"));
         }
-        return movieRepository.findByGenresName(genre).collect(Collectors.toList());
+        return movieRepository.findByGenresName(genre);
     }
 
     private List<Movie> findAll(OptionalInt page, OptionalInt size) {
@@ -50,7 +50,7 @@ public class MovieService {
     }
 
     public List<Movie> findByTitle(String title) {
-        return movieRepository.findByTitle(title).collect(Collectors.toList());
+        return movieRepository.findByTitle(title);
     }
 
     public Movie findById(Integer id) {
